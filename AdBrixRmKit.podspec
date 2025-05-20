@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = "AdBrixRmKit"
-  spec.version      = "2.6.0.5"
+  spec.version      = "2.7.0.0"
   spec.summary      = "AdBrixRmKit Release Version"
   spec.homepage     = "https://github.com/IGAWorksDev/SDK-V2-IOS-Abx.Remaster-Cocoapod"
 
@@ -17,6 +17,6 @@ The release version of AdBrixRmKit
   spec.author       = { "jimmy.kang" => "jimmy.kang@igaworks.com" }
   spec.source       = { :git => 'https://github.com/IGAWorksDev/SDK-V2-IOS-Abx.Remaster-Cocoapod.git', :tag => spec.version.to_s }
 
-  spec.platform     = :ios, "11.0"
+  spec.platform     = :ios, "12.0"
   spec.ios.vendored_frameworks = 'AdBrixRmKit.xcframework'
 end

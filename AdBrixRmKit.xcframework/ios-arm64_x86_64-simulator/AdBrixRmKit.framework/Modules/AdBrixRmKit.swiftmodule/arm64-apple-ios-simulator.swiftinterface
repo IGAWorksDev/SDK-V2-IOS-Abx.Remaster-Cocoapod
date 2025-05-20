@@ -1,7 +1,7 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
-// swift-module-flags: -target arm64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name AdBrixRmKit
-// swift-module-flags-ignorable: -enable-bare-slash-regex
+// swift-compiler-version: Apple Swift version 6.0 effective-5.10 (swiftlang-6.0.0.9.10 clang-1600.0.26.2)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-bare-slash-regex -module-name AdBrixRmKit
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
 @_exported import AdBrixRmKit
 import AdServices
 import AdSupport
@@ -20,6 +20,7 @@ import UserNotifications
 import WebKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 import os.log
 import os
 @objc @_hasMissingDesignatedInitializers public class AbxRemotePushModel : ObjectiveC.NSObject {
@@ -73,10 +74,8 @@ import os
   }
   @objc public static func Builder() -> AdBrixRmKit.SubscriptionStatusBuilder
   @objc public func send(completion: @escaping (AdBrixRmKit.SetSubscriptionResult) -> ())
-  #if compiler(>=5.3) && $AsyncAwait
   @objc @available(iOS 13.0, *)
   public func send() async -> AdBrixRmKit.SetSubscriptionResult
-  #endif
   @objc public enum _Type : Swift.Int {
     case SUBSCRIBED
     case UNSUBSCRIBED
@@ -201,7 +200,7 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 @objc @_hasMissingDesignatedInitializers @objcMembers public class ActionHistoryResult : ObjectiveC.NSObject {
   @objc final public let isSucceeded: Swift.Bool
   @objc public func getData() -> [AdBrixRmKit.ActionHistory]?
-  @objc public func getError() -> Swift.Error?
+  @objc public func getError() -> (any Swift.Error)?
   @objc deinit
 }
 @objc public enum ActionHistoryIdType : Swift.Int {
@@ -264,8 +263,8 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 }
 @objc @objcMembers public class DfnResult : ObjectiveC.NSObject {
   @objc final public let isSuccess: Swift.Bool
-  @objc final public let error: Swift.Error?
-  @objc public init(isSuccess: Swift.Bool, error: Swift.Error?)
+  @objc final public let error: (any Swift.Error)?
+  @objc public init(isSuccess: Swift.Bool, error: (any Swift.Error)?)
   @objc deinit
 }
 @objc @objcMembers public class CIResult : ObjectiveC.NSObject {
@@ -281,12 +280,12 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 @_hasMissingDesignatedInitializers @objc public class AdBrixRM : ObjectiveC.NSObject {
   public static let getInstance: AdBrixRmKit.AdBrixRM
   @objc public class func sharedInstance() -> AdBrixRmKit.AdBrixRM
-  public var delegateDeferredDeeplink: AdBrixRmKit.AdBrixRMDeferredDeeplinkDelegate?
-  public var delegateDeeplink: AdBrixRmKit.AdBrixRMDeeplinkDelegate?
-  public var delegateLocalPush: AdBrixRmKit.AdBrixRmPushLocalDelegate?
-  public var delegateRemotePush: AdBrixRmKit.AdBrixRmPushRemoteDelegate?
-  public var delegateInAppMessageClick: AdBrixRmKit.AdBrixRMInAppMessageClickDelegate?
-  public var delegateInAppMessageAutoFetch: AdBrixRmKit.DfnInAppMessageAutoFetchDelegate?
+  public var delegateDeferredDeeplink: (any AdBrixRmKit.AdBrixRMDeferredDeeplinkDelegate)?
+  public var delegateDeeplink: (any AdBrixRmKit.AdBrixRMDeeplinkDelegate)?
+  public var delegateLocalPush: (any AdBrixRmKit.AdBrixRmPushLocalDelegate)?
+  public var delegateRemotePush: (any AdBrixRmKit.AdBrixRmPushRemoteDelegate)?
+  public var delegateInAppMessageClick: (any AdBrixRmKit.AdBrixRMInAppMessageClickDelegate)?
+  public var delegateInAppMessageAutoFetch: (any AdBrixRmKit.DfnInAppMessageAutoFetchDelegate)?
   @objc public func stopGettingIDFA()
   @objc public func startGettingIDFA()
   @objc public func initAdBrix(appKey: Swift.String, secretKey: Swift.String)
@@ -398,10 +397,10 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   @objc public func deleteActionHistory(token: Swift.String?, historyId: Swift.String, timeStamp: Swift.Int64, completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
   @objc public func clearSyncedActionHistoryInLocalDB(completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
   @objc public func clearAllActionHistoryInLocalDB()
-  @objc public func setAdBrixRmPushLocalDelegate(delegate: AdBrixRmKit.AdBrixRmPushLocalDelegate)
-  @objc public func setAdBrixRmPushRemoteDelegate(delegate: AdBrixRmKit.AdBrixRmPushRemoteDelegate)
-  @objc public func registerLocalPushNotification(date: Foundation.Date, title: Swift.String, subtitle: Swift.String?, body: Swift.String, sound: UserNotifications.UNNotificationSound?, categoryId: Swift.String?, threadId: Swift.String?, badgeNumber: Foundation.NSNumber?, image: Foundation.URL?, attrDic: [Swift.String : Any]?, completionHandler: @escaping (_ isRegSucc: Swift.Bool, _ error: Swift.Error?, _ pushId: Swift.String) -> Swift.Void)
-  @objc public func registerLocalPushNotification(id: Swift.String, date: Foundation.Date, title: Swift.String, subtitle: Swift.String?, body: Swift.String, sound: UserNotifications.UNNotificationSound?, categoryId: Swift.String?, threadId: Swift.String?, badgeNumber: Foundation.NSNumber?, image: Foundation.URL?, attrDic: [Swift.String : Any]?, completionHandler: @escaping (_ isRegSucc: Swift.Bool, _ error: Swift.Error?, _ pushId: Swift.String) -> Swift.Void)
+  @objc public func setAdBrixRmPushLocalDelegate(delegate: any AdBrixRmKit.AdBrixRmPushLocalDelegate)
+  @objc public func setAdBrixRmPushRemoteDelegate(delegate: any AdBrixRmKit.AdBrixRmPushRemoteDelegate)
+  @objc public func registerLocalPushNotification(date: Foundation.Date, title: Swift.String, subtitle: Swift.String?, body: Swift.String, sound: UserNotifications.UNNotificationSound?, categoryId: Swift.String?, threadId: Swift.String?, badgeNumber: Foundation.NSNumber?, image: Foundation.URL?, attrDic: [Swift.String : Any]?, completionHandler: @escaping (_ isRegSucc: Swift.Bool, _ error: (any Swift.Error)?, _ pushId: Swift.String) -> Swift.Void)
+  @objc public func registerLocalPushNotification(id: Swift.String, date: Foundation.Date, title: Swift.String, subtitle: Swift.String?, body: Swift.String, sound: UserNotifications.UNNotificationSound?, categoryId: Swift.String?, threadId: Swift.String?, badgeNumber: Foundation.NSNumber?, image: Foundation.URL?, attrDic: [Swift.String : Any]?, completionHandler: @escaping (_ isRegSucc: Swift.Bool, _ error: (any Swift.Error)?, _ pushId: Swift.String) -> Swift.Void)
   @objc public func getRegisteredLocalPushNotification(completeHandler: @escaping ([Swift.String]) -> ())
   @objc public func cancelLocalPushNotification(ids: [Swift.String])
   @objc public func cancelLocalPushNotificationAll()
@@ -418,31 +417,25 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   @objc public func setInAppMessageToken(token: Swift.String)
   @objc public func pauseInAppMessage()
   @objc public func resumeInAppMessage()
-  @objc public func setLogDelegate(delegate: AdBrixRmKit.AdBrixRMLogDelegate)
-  @objc public func setInAppMessageClickDelegate(delegate: AdBrixRmKit.AdBrixRMInAppMessageClickDelegate)
-  @objc public func setInAppMessageAutoFetchDelegate(delegate: AdBrixRmKit.DfnInAppMessageAutoFetchDelegate)
+  @objc public func setInAppMessageView(_ view: UIKit.UIView?)
+  @objc public func inAppMessageViewDidDisappear()
+  @objc public func setLogDelegate(delegate: any AdBrixRmKit.AdBrixRMLogDelegate)
+  @objc public func setInAppMessageClickDelegate(delegate: any AdBrixRmKit.AdBrixRMInAppMessageClickDelegate)
+  @objc public func setInAppMessageAutoFetchDelegate(delegate: any AdBrixRmKit.DfnInAppMessageAutoFetchDelegate)
   @objc public func printSdkState()
-  @objc public func setDeeplinkDelegate(delegate: AdBrixRmKit.AdBrixRMDeeplinkDelegate)
-  @objc public func setDeferredDeeplinkDelegate(delegate: AdBrixRmKit.AdBrixRMDeferredDeeplinkDelegate)
+  @objc public func setDeeplinkDelegate(delegate: any AdBrixRmKit.AdBrixRMDeeplinkDelegate)
+  @objc public func setDeferredDeeplinkDelegate(delegate: any AdBrixRmKit.AdBrixRMDeferredDeeplinkDelegate)
   @objc public func setDeviceId(_ device_id: Swift.String)
   @objc public func flushAllEvents(completion: ((AdBrixRmKit.DfnResult) -> ())? = nil)
   @objc public func getSDKVersion() -> Swift.String
-  #if compiler(>=5.3) && $AsyncAwait
   @available(iOS 13, *)
   public func getSubscriptionStatus() async -> AdBrixRmKit.GetSubscriptionResult
-  #endif
-  #if compiler(>=5.3) && $AsyncAwait
   @available(iOS 13, *)
   public func setSubscriptionStatus(status: AdBrixRmKit.SubscriptionStatus) async -> AdBrixRmKit.SetSubscriptionResult
-  #endif
-  #if compiler(>=5.3) && $AsyncAwait
   @available(iOS 13, *)
   public func setKakaoId(kakaoId: Swift.String) async -> AdBrixRmKit.SetCiProfileResult
-  #endif
-  #if compiler(>=5.3) && $AsyncAwait
   @available(iOS 13, *)
   public func setPhoneNumber(number: Swift.String) async -> AdBrixRmKit.SetCiProfileResult
-  #endif
   @objc public enum AdBrixEventUploadCountInterval : Swift.Int {
     case MIN = 10, NORMAL = 30, MAX = 60
     public init?(rawValue: Swift.Int)
@@ -584,12 +577,12 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 @objc @_hasMissingDesignatedInitializers @objcMembers public class DfnInAppMessageResult : ObjectiveC.NSObject {
   @objc final public let isSucceeded: Swift.Bool
   @objc public func getData() -> [AdBrixRmKit.DfnInAppMessage]?
-  @objc public func getError() -> Swift.Error?
+  @objc public func getError() -> (any Swift.Error)?
   @objc deinit
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers public class DfnInAppMessageFetchResult : ObjectiveC.NSObject {
   @objc final public let isSucceeded: Swift.Bool
-  @objc public func getError() -> Swift.Error?
+  @objc public func getError() -> (any Swift.Error)?
   @objc deinit
 }
 extension AdBrixRmKit.SubscriptionStatus._Type : Swift.Equatable {}
