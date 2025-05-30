@@ -23075,7 +23075,7 @@
       "kind": "StringLiteral",
       "offset": 227,
       "length": 9,
-      "value": "\"2.7.0.0\""
+      "value": "\"2.7.0.1\""
     },
     {
       "filePath": "\/Users\/jimmy.gangsehun\/Desktop\/SDK\/AdBrixRmKit\/Domain\/Constants.swift",
@@ -26461,14 +26461,14 @@
     {
       "filePath": "\/Users\/jimmy.gangsehun\/Desktop\/SDK\/AdBrixRmKit\/Utils\/DfnUtil.swift",
       "kind": "IntegerLiteral",
-      "offset": 20639,
+      "offset": 20528,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/jimmy.gangsehun\/Desktop\/SDK\/AdBrixRmKit\/Utils\/DfnUtil.swift",
       "kind": "IntegerLiteral",
-      "offset": 20642,
+      "offset": 20531,
       "length": 4,
       "value": "1"
     },
