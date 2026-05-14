@@ -1,7 +1,7 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 6.0 effective-5.10 (swiftlang-6.0.0.9.10 clang-1600.0.26.2)
-// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-bare-slash-regex -module-name AdBrixRmKit
-// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name AdBrixRmKit
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
 @_exported import AdBrixRmKit
 import AdServices
 import AdSupport
@@ -89,7 +89,9 @@ import os
     public var isUndefined: Swift.Bool {
       get
     }
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -137,7 +139,9 @@ import os
   case RESULT_CODE_NO_DATA_TO_GET = -257
   case RESULT_CODE_SDK_DISABLED = -258
   case RESULT_CODE_SDK_STATUS = -259
+  #if compiler(>=5.3) && $NonescapableTypes
   public init?(rawValue: Swift.Int)
+  #endif
   public typealias RawValue = Swift.Int
   public static var _nsErrorDomain: Swift.String {
     get
@@ -147,9 +151,11 @@ import os
   }
 }
 extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
+  #if compiler(>=5.3) && $NonescapableTypes
   public var errorDescription: Swift.String? {
     get
   }
+  #endif
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers public class GetSubscriptionResult : AdBrixRmKit.CIResult {
   @objc final public let value: AdBrixRmKit.SubscriptionStatus?
@@ -167,7 +173,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   @objc final public let group: Swift.String
   @objc final public let isServerSynced: Swift.Bool
   @objc public func toJsonString() -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public static func fromDictionary(historyJsonDic: [Swift.String : Any], isServerSynced: Swift.Bool) -> AdBrixRmKit.ActionHistory?
+  #endif
   @objc deinit
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers public class ActionContent : ObjectiveC.NSObject {
@@ -199,13 +207,19 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers public class ActionHistoryResult : ObjectiveC.NSObject {
   @objc final public let isSucceeded: Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func getData() -> [AdBrixRmKit.ActionHistory]?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func getError() -> (any Swift.Error)?
+  #endif
   @objc deinit
 }
 @objc public enum ActionHistoryIdType : Swift.Int {
   case USER_ID = 0, ADID
+  #if compiler(>=5.3) && $NonescapableTypes
   public init?(rawValue: Swift.Int)
+  #endif
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
@@ -255,7 +269,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 }
 @objc public enum Completion : Swift.Int {
   case success = 0, fail
+  #if compiler(>=5.3) && $NonescapableTypes
   public init?(rawValue: Swift.Int)
+  #endif
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
@@ -264,17 +280,23 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 @objc @objcMembers public class DfnResult : ObjectiveC.NSObject {
   @objc final public let isSuccess: Swift.Bool
   @objc final public let error: (any Swift.Error)?
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public init(isSuccess: Swift.Bool, error: (any Swift.Error)?)
+  #endif
   @objc deinit
 }
 @objc @objcMembers public class CIResult : ObjectiveC.NSObject {
   @objc final public let isSuccess: Swift.Bool
   final public let resultCode: Swift.Int?
   @objc final public let resultMessage: Swift.String?
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public var resultCodeObjc: Foundation.NSNumber? {
     @objc get
   }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
   public init(isSuccess: Swift.Bool, resultCode: Swift.Int?, resultMessage: Swift.String?)
+  #endif
   @objc deinit
 }
 @_hasMissingDesignatedInitializers @objc public class AdBrixRM : ObjectiveC.NSObject {
@@ -317,90 +339,152 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   @objc public func event(eventName: Swift.String)
   @objc public func eventWithAttr(eventName: Swift.String, value: AdBrixRmKit.AdBrixRmAttrModel)
   @objc public func commonSignUp(channel: AdBrixRmKit.AdBrixRM.AdBrixRmSignUpChannel)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commonSignUpWithAttr(channel: AdBrixRmKit.AdBrixRM.AdBrixRmSignUpChannel, commonAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func getSignUpChannelByAdBrixRmSignUpChannel(_ channel: AdBrixRmKit.AdBrixRM.AdBrixRmSignUpChannel) -> Swift.String
   @objc public func getSignUpChannel(_ channel: Swift.Int) -> Swift.String
   @objc public func convertSignUpChannel(_ code: Swift.Int) -> AdBrixRmKit.AdBrixRM.AdBrixRmSignUpChannel
   @objc public func commonAppUpdate(prev_ver: Swift.String, curr_ver: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commonAppUpdateWithAttr(prev_ver: Swift.String, curr_ver: Swift.String, commonAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func commonInvite(channel: AdBrixRmKit.AdBrixRM.AdBrixRmInviteChannel)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commonInviteWithAttr(channel: AdBrixRmKit.AdBrixRM.AdBrixRmInviteChannel, commonAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func getInviteChannelByAdBrixRmSignUpChannel(_ channel: AdBrixRmKit.AdBrixRM.AdBrixRmInviteChannel) -> Swift.String
   @objc public func getInviteChannel(_ channel: Swift.Int) -> Swift.String
   @objc public func convertInviteChannel(_ code: Swift.Int) -> AdBrixRmKit.AdBrixRM.AdBrixRmInviteChannel
   @objc public func commonUseCredit()
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commonUseCreditWithAttr(commonAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func commonPurchase(orderId: Swift.String, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], orderSales: Swift.Double = 0, discount: Swift.Double, deliveryCharge: Swift.Double, paymentMethod: AdBrixRmKit.AdBrixRM.AdbrixRmPaymentMethod)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commonPurchaseWithAttr(orderId: Swift.String, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], orderSales: Swift.Double = 0, discount: Swift.Double, deliveryCharge: Swift.Double, paymentMethod: AdBrixRmKit.AdBrixRM.AdbrixRmPaymentMethod, orderAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func getPaymentMethodByAdbrixRmPaymentMethod(_ method: AdBrixRmKit.AdBrixRM.AdbrixRmPaymentMethod) -> Swift.String
   @objc public func getPaymentMethod(_ method: Swift.Int) -> Swift.String
   @objc public func convertPayment(_ code: Swift.Int) -> AdBrixRmKit.AdBrixRM.AdbrixRmPaymentMethod
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func createCommerceProductDataWithAttr(productId: Swift.String, productName: Swift.String, price: Swift.Double, quantity: Swift.Int, discount: Swift.Double, currencyString: Swift.String?, category: AdBrixRmKit.AdBrixRmCommerceProductCategoryModel?, productAttrsMap: AdBrixRmKit.AdBrixRmAttrModel?) -> AdBrixRmKit.AdBrixRmCommerceProductModel
+  #endif
   @objc public func createAttrModel(dictionary: [Swift.String : Swift.String]) -> AdBrixRmKit.AdBrixRmAttrModel
   @objc public func createCommerceProductCategoryData(category: Swift.String, category2: Swift.String = "", category3: Swift.String = "", category4: Swift.String = "", category5: Swift.String = "") -> AdBrixRmKit.AdBrixRmCommerceProductCategoryModel
   @objc public func getCurrencyStringByAdBrixCurrencyType(_ currency: AdBrixRmKit.AdBrixRM.AdBrixRmCurrencyType) -> Swift.String
   @objc public func getCurrencyString(_ currency: Swift.Int) -> Swift.String
   @objc public func commerceViewHome()
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceViewHomeWithAttr(orderAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func commerceCategoryView(category: AdBrixRmKit.AdBrixRmCommerceProductCategoryModel, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel])
   @objc public func getSubscriptionStatus(completion: @escaping (AdBrixRmKit.GetSubscriptionResult) -> ())
   @objc public func setSubscriptionStatus(status: AdBrixRmKit.SubscriptionStatus, completion: @escaping (AdBrixRmKit.SetSubscriptionResult) -> ())
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceCategoryViewWithAttr(category: AdBrixRmKit.AdBrixRmCommerceProductCategoryModel, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], orderAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func commerceProductView(productInfo: AdBrixRmKit.AdBrixRmCommerceProductModel)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceProductViewWithAttr(productInfo: AdBrixRmKit.AdBrixRmCommerceProductModel, orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func commerceAddToCart(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel])
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceAddToCartWithAttr(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc(commerceAddToWishList:) public func commerceAddToWishList(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel])
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc(commerceAddToWishList:withAttr:) public func commerceAddToWishListWithAttr(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func commerceAddToWishList(productInfo: AdBrixRmKit.AdBrixRmCommerceProductModel)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceAddToWishListWithAttr(productInfo: AdBrixRmKit.AdBrixRmCommerceProductModel, orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func commerceReviewOrder(orderId: Swift.String, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], discount: Swift.Double, deliveryCharge: Swift.Double)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceReviewOrderWithAttr(orderId: Swift.String, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], discount: Swift.Double, deliveryCharge: Swift.Double, orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func commerceRefund(orderId: Swift.String, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], penaltyCharge: Swift.Double)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceRefundWithAttr(orderId: Swift.String, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], penaltyCharge: Swift.Double, orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func commerceSearch(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], keyword: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceSearchWithAttr(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], keyword: Swift.String, orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc(commerceShare:productInfo:) public func commerceShare(channel: AdBrixRmKit.AdBrixRM.AdBrixRmSharingChannel, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel])
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc(commerceShareWithAttr:productInfo:orderAttr:) public func commerceShareWithAttr(channel: AdBrixRmKit.AdBrixRM.AdBrixRmSharingChannel, productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func commerceShare(channel: AdBrixRmKit.AdBrixRM.AdBrixRmSharingChannel, productInfo: AdBrixRmKit.AdBrixRmCommerceProductModel)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceShareWithAttr(channel: AdBrixRmKit.AdBrixRM.AdBrixRmSharingChannel, productInfo: AdBrixRmKit.AdBrixRmCommerceProductModel, orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func getSharingChannelByAdBrixRmSharingChannel(_ channel: AdBrixRmKit.AdBrixRM.AdBrixRmSharingChannel) -> Swift.String
   @objc public func getSharingChannel(_ channel: Swift.Int) -> Swift.String
   @objc public func convertChannel(_ code: Swift.Int) -> AdBrixRmKit.AdBrixRM.AdBrixRmSharingChannel
   @objc public func commerceListView(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel])
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceListViewWithAttr(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func commerceCartView(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel])
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commerceCartViewWithAttr(productInfo: [AdBrixRmKit.AdBrixRmCommerceProductModel], orderAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func commercePaymentInfoAdded()
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func commercePaymentInfoAddedWithAttr(paymentInfoAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func gameTutorialCompleted(isSkip: Swift.Bool)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func gameTutorialCompletedWithAttr(isSkip: Swift.Bool, gameInfoAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @objc public func gameCharacterCreated()
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func gameCharacterCreatedWithAttr(gameInfoAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func gameStageCleared(stageName: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func gameStageClearedWithAttr(stageName: Swift.String, gameInfoAttr: AdBrixRmKit.AdBrixRmAttrModel?)
+  #endif
   @objc public func gameLevelAchieved(level: Swift.Int)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func gameLevelAchievedWithAttr(level: Swift.Int, gameInfoAttr: AdBrixRmKit.AdBrixRmAttrModel? = nil)
+  #endif
   @available(*, deprecated)
   @objc public func deleteUserDataAndStopSDK(_ userId: Swift.String, _ completion: @escaping (AdBrixRmKit.Completion) -> ())
   @available(*, deprecated)
   @objc public func restartSDK(_ userId: Swift.String, _ completion: @escaping (AdBrixRmKit.Completion) -> ())
   @objc public func setRegistrationId(deviceToken: Foundation.Data)
   @objc public func setPushEnable(toPushEnable: Swift.Bool)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func fetchActionHistoryByUserId(token: Swift.String?, actionType: [Swift.String], completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func fetchActionHistoryByAdid(token: Swift.String?, actionType: [Swift.String], completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
+  #endif
   @objc public func insertPushData(pushJsonDic: [Swift.String : Any])
   @objc public func getActionHistory(skip: Swift.Int, limit: Swift.Int, actionType: [Swift.String], completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
   @objc public func getAllActionHistory(actionType: [Swift.String], completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func deleteAllActionHistoryByUserId(token: Swift.String?, completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func deleteAllActionHistoryByAdid(token: Swift.String?, completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func deleteActionHistory(token: Swift.String?, historyId: Swift.String, timeStamp: Swift.Int64, completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
+  #endif
   @objc public func clearSyncedActionHistoryInLocalDB(completion: @escaping (AdBrixRmKit.ActionHistoryResult) -> ())
   @objc public func clearAllActionHistoryInLocalDB()
   @objc public func setAdBrixRmPushLocalDelegate(delegate: any AdBrixRmKit.AdBrixRmPushLocalDelegate)
   @objc public func setAdBrixRmPushRemoteDelegate(delegate: any AdBrixRmKit.AdBrixRmPushRemoteDelegate)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func registerLocalPushNotification(date: Foundation.Date, title: Swift.String, subtitle: Swift.String?, body: Swift.String, sound: UserNotifications.UNNotificationSound?, categoryId: Swift.String?, threadId: Swift.String?, badgeNumber: Foundation.NSNumber?, image: Foundation.URL?, attrDic: [Swift.String : Any]?, completionHandler: @escaping (_ isRegSucc: Swift.Bool, _ error: (any Swift.Error)?, _ pushId: Swift.String) -> Swift.Void)
-  @objc public func registerLocalPushNotification(identifier: Swift.String, date: Foundation.Date, title: Swift.String, subtitle: Swift.String?, body: Swift.String, sound: UserNotifications.UNNotificationSound?, categoryId: Swift.String?, threadId: Swift.String?, badgeNumber: Foundation.NSNumber?, image: Foundation.URL?, attrDic: [Swift.String : Any]?, completionHandler: @escaping (_ isRegSucc: Swift.Bool, _ error: (any Swift.Error)?, _ pushId: Swift.String) -> Swift.Void)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func registerLocalPushNotification(id: Swift.String, date: Foundation.Date, title: Swift.String, subtitle: Swift.String?, body: Swift.String, sound: UserNotifications.UNNotificationSound?, categoryId: Swift.String?, threadId: Swift.String?, badgeNumber: Foundation.NSNumber?, image: Foundation.URL?, attrDic: [Swift.String : Any]?, completionHandler: @escaping (_ isRegSucc: Swift.Bool, _ error: (any Swift.Error)?, _ pushId: Swift.String) -> Swift.Void)
+  #endif
   @objc public func getRegisteredLocalPushNotification(completeHandler: @escaping ([Swift.String]) -> ())
   @objc public func cancelLocalPushNotification(ids: [Swift.String])
   @objc public func cancelLocalPushNotificationAll()
@@ -417,7 +501,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   @objc public func setInAppMessageToken(token: Swift.String)
   @objc public func pauseInAppMessage()
   @objc public func resumeInAppMessage()
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func setInAppMessageView(_ view: UIKit.UIView?)
+  #endif
   @objc public func inAppMessageViewDidDisappear()
   @objc public func setLogDelegate(delegate: any AdBrixRmKit.AdBrixRMLogDelegate)
   @objc public func setInAppMessageClickDelegate(delegate: any AdBrixRmKit.AdBrixRMInAppMessageClickDelegate)
@@ -426,7 +512,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   @objc public func setDeeplinkDelegate(delegate: any AdBrixRmKit.AdBrixRMDeeplinkDelegate)
   @objc public func setDeferredDeeplinkDelegate(delegate: any AdBrixRmKit.AdBrixRMDeferredDeeplinkDelegate)
   @objc public func setDeviceId(_ device_id: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func flushAllEvents(completion: ((AdBrixRmKit.DfnResult) -> ())? = nil)
+  #endif
   @objc public func getSDKVersion() -> Swift.String
   @available(iOS 13, *)
   public func getSubscriptionStatus() async -> AdBrixRmKit.GetSubscriptionResult
@@ -438,7 +526,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   public func setPhoneNumber(number: Swift.String) async -> AdBrixRmKit.SetCiProfileResult
   @objc public enum AdBrixEventUploadCountInterval : Swift.Int {
     case MIN = 10, NORMAL = 30, MAX = 60
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -446,7 +536,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   }
   @objc public enum AdBrixEventUploadTimeInterval : Swift.Int {
     case MIN = 30, NORMAL = 60, MAX = 120
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -454,7 +546,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   }
   @objc public enum AdBrixLogLevel : Swift.Int {
     case NONE = 0, TRACE = 1, DEBUG = 2, INFO = 3, WARNING = 4, ERROR = 5
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -462,7 +556,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   }
   @objc public enum AdBrixGenderType : Swift.Int {
     case Male = 2, Female = 1, Unknown = 0
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -470,7 +566,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   }
   @objc public enum AdBrixRmSignUpChannel : Swift.Int {
     case AdBrixRmSignUpKakaoChannel = 1, AdBrixRmSignUpNaverChannel = 2, AdBrixRmSignUpLineChannel = 3, AdBrixRmSignUpGoogleChannel = 4, AdBrixRmSignUpFacebookChannel = 5, AdBrixRmSignUpTwitterChannel = 6, AdBrixRmSignUpWhatsAppChannel = 7, AdBrixRmSignUpQQChannel = 8, AdBrixRmSignUpWeChatChannel = 9, AdBrixRmSignUpUserIdChannel = 10, AdBrixRmSignUpETCChannel = 11, AdBrixRmSignUpSkTidChannel = 12, AdBrixRmSignUpAppleIdChannel = 13
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -478,7 +576,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   }
   @objc public enum AdBrixRmInviteChannel : Swift.Int {
     case AdBrixRmInviteKakaoChannel = 1, AdBrixRmInviteNaverChannel = 2, AdBrixRmInviteLineChannel = 3, AdBrixRmInviteGoogleChannel = 4, AdBrixRmInviteFacebookChannel = 5, AdBrixRmInviteTwitterChannel = 6, AdBrixRmInviteWhatsAppChannel = 7, AdBrixRmInviteQQChannel = 8, AdBrixRmInviteWeChatChannel = 9, AdBrixRmInviteETCChannel = 10
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -486,7 +586,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   }
   @objc public enum AdBrixRmCurrencyType : Swift.Int {
     case KRW = 1, USD = 2, JPY = 3, EUR = 4, GBP = 5, CNY = 6, TWD = 7, HKD = 8, IDR = 9, INR = 10, RUB = 11, THB = 12, VND = 13, MYR = 14
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -494,7 +596,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   }
   @objc public enum AdbrixRmPaymentMethod : Swift.Int {
     case CreditCard = 1, BankTransfer = 2, MobilePayment = 3, ETC = 4
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -502,7 +606,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   }
   @objc public enum AdBrixRmSharingChannel : Swift.Int {
     case AdBrixRmSharingFacebook = 1, AdBrixRmSharingKakaoTalk = 2, AdBrixRmSharingKakaoStory = 3, AdBrixRmSharingLine = 4, AdBrixRmSharingWhatsApp = 5, AdBrixRmSharingQQ = 6, AdBrixRmSharingWeChat = 7, AdBrixRmSharingSMS = 8, AdBrixRmSharingEmail = 9, AdBrixRmSharingCopyUrl = 10, AdBrixRmSharingETC = 11
+    #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.Int)
+    #endif
     public typealias RawValue = Swift.Int
     public var rawValue: Swift.Int {
       get
@@ -519,16 +625,24 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
   @objc func didReceiveDeferredDeeplink(deeplink: Swift.String)
 }
 @objc public protocol AdBrixRmPushLocalDelegate {
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc func pushLocalCallback(data: Swift.Dictionary<Swift.String, Any>?, state: UIKit.UIApplication.State)
+  #endif
 }
 @objc public protocol AdBrixRmPushRemoteDelegate {
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc func pushRemoteCallback(data: Swift.Dictionary<Swift.String, Any>?, state: UIKit.UIApplication.State)
+  #endif
 }
 @objc public protocol AdBrixRmPushNoticePopupLinkClickDelegate {
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc func noticePopupLinkClickCallback(popupSpaceKey: Swift.String, data: Swift.Dictionary<Swift.String, Any>?)
+  #endif
 }
 @objc public protocol AdBrixRmPushNoticePopupCloseDelegate {
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc func noticePopupCloseCallback(popupSpaceKey: Swift.String, data: Swift.Dictionary<Swift.String, Any>?)
+  #endif
 }
 @objc public protocol AdBrixRMLogDelegate {
   @objc func didPrintLog(level: AdBrixRmKit.AdBrixRM.AdBrixLogLevel, log: Swift.String)
@@ -546,7 +660,9 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 }
 @_inheritsConvenienceInitializers @objc public class AdBrixRmCommerceProductModel : ObjectiveC.NSObject {
   @objc override dynamic public init()
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func setModel(productId: Swift.String, productName: Swift.String, price: Swift.Double, quantity: Swift.Int, discount: Swift.Double, currencyString: Swift.String?, categories: AdBrixRmKit.AdBrixRmCommerceProductCategoryModel?, productAttrsMap: AdBrixRmKit.AdBrixRmAttrModel?) -> AdBrixRmKit.AdBrixRmCommerceProductModel
+  #endif
   @objc deinit
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers public class DfnInAppMessage : ObjectiveC.NSObject {
@@ -576,13 +692,19 @@ extension AdBrixRmKit.UserProfileServerError : Foundation.LocalizedError {
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers public class DfnInAppMessageResult : ObjectiveC.NSObject {
   @objc final public let isSucceeded: Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func getData() -> [AdBrixRmKit.DfnInAppMessage]?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func getError() -> (any Swift.Error)?
+  #endif
   @objc deinit
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers public class DfnInAppMessageFetchResult : ObjectiveC.NSObject {
   @objc final public let isSucceeded: Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
   @objc public func getError() -> (any Swift.Error)?
+  #endif
   @objc deinit
 }
 extension AdBrixRmKit.SubscriptionStatus._Type : Swift.Equatable {}
